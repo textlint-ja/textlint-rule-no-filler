@@ -20,7 +20,7 @@ tester.run("textlint-rule-no-filler", rule, {
             ]
         },
         {
-            text: "あのー、この問題について教えれくれますか?",
+            text: "あのー、この問題について教えてくれますか?",
             errors: [
                 {
                     message: errorMessage("あのー"),
