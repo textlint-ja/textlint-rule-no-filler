@@ -45,6 +45,15 @@ tester.run("textlint-rule-no-filler", rule, {
                     index: 0
                 }
             ]
+        },
+        {
+            text: "なんかよく自分は「なんか」ってを良く使うけどこれってフィラーなんだなーと言うことを知った。",
+            errors: [
+                {
+                    message: errorMessage("なんか"),
+                    index: 0
+                }
+            ]
         }
     ]
 });
