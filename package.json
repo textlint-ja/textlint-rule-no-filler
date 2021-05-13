@@ -1,6 +1,6 @@
 {
   "name": "@textlint-ja/textlint-rule-no-filler",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "「ええと」「あの」「まあ」などのフィラー（つなぎ表現）を禁止するtextlintルール",
   "keywords": [
     "textlintrule"
