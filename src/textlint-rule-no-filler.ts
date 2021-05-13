@@ -1,7 +1,8 @@
-import type { TxtParentNode, TxtTextNode } from "@textlint/ast-node-types";
+import type { TxtTextNode } from "@textlint/ast-node-types";
 import type { TextlintRuleReporter } from "@textlint/types";
 import { StringSource } from "textlint-util-to-string";
 import { tokenize } from "kuromojin";
+import { splitAST, Syntax as SentenceSyntax, SentenceNode } from "sentence-splitter";
 
 export type Options = {};
 /**
@@ -17,7 +18,7 @@ const maskCodeNode = (codeNode: TxtTextNode) => {
         value: codeNode.value.replace(/./g, "X")
     };
 };
-const sourceWithoutStyle = (node: TxtParentNode) => {
+const sourceWithoutStyle = (node: SentenceNode) => {
     const nodeMaskedCode = {
         ...node,
         children: node.children.map((childNode) => {
@@ -34,25 +35,31 @@ const report: TextlintRuleReporter<Options> = (context) => {
     const { Syntax, RuleError, report } = context;
     return {
         async [Syntax.Paragraph](node) {
-            const source = sourceWithoutStyle(node);
-            const tokens = await tokenize(source.toString());
-            tokens.forEach((token) => {
-                if (token.pos === "フィラー") {
-                    const index = token.word_position - 1;
-                    const originalIndex = source.originalIndexFromIndex(index);
-                    report(
-                        node,
-                        new RuleError(
-                            `フィラー（つなぎ表現）である「${token.surface_form}」を検知しました。
+            const splitNode = splitAST(node);
+            const sentences = splitNode.children.filter(
+                (node) => node.type === SentenceSyntax.Sentence
+            ) as SentenceNode[];
+            for (const sentence of sentences) {
+                const source = sourceWithoutStyle(sentence);
+                const tokens = await tokenize(source.toString());
+                tokens.forEach((token) => {
+                    if (token.pos === "フィラー") {
+                        const index = token.word_position - 1;
+                        const originalIndex = source.originalIndexFromIndex(index);
+                        report(
+                            sentence,
+                            new RuleError(
+                                `フィラー（つなぎ表現）である「${token.surface_form}」を検知しました。
                         
 「えーと」「あの」「まあ」などのつなぎ表現は話し言葉（口語）であるため、文章を読みにくくします。`,
-                            {
-                                index: originalIndex
-                            }
-                        )
-                    );
-                }
-            });
+                                {
+                                    index: originalIndex
+                                }
+                            )
+                        );
+                    }
+                });
+            }
         }
     };
 };

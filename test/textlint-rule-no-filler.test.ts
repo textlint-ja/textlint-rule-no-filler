@@ -8,7 +8,7 @@ const errorMessage = (word: string) => {
 「えーと」「あの」「まあ」などのつなぎ表現は話し言葉（口語）であるため、文章を読みにくくします。`;
 };
 tester.run("textlint-rule-no-filler", rule, {
-    valid: ["これは問題ない文章です。"],
+    valid: ["これは問題ない文章です。", "`code`と`code`"],
     invalid: [
         {
             text: "えーと、フィラーについてですね。",
@@ -52,6 +52,25 @@ tester.run("textlint-rule-no-filler", rule, {
                 {
                     message: errorMessage("なんか"),
                     index: 0
+                }
+            ]
+        },
+        // mutiline
+        {
+            text: `なんか、これは問題あるかも。
+サーバとサーバーの表記揺れがある。
+この雇入と雇入れの違いを見つける。
+なんか、これは問題あるかも。
+`,
+            errors: [
+                {
+                    message: errorMessage("なんか"),
+                    index: 0
+                },
+                {
+                    message: errorMessage("なんか"),
+                    line: 4,
+                    column: 1
                 }
             ]
         }

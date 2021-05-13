@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "kuromojin": "^3.0.0",
+    "sentence-splitter": "^3.2.1",
     "textlint-util-to-string": "^3.1.1"
   }
 }
