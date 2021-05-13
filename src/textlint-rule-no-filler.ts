@@ -43,9 +43,9 @@ const report: TextlintRuleReporter<Options> = (context) => {
                     report(
                         node,
                         new RuleError(
-                            `フィラー（繋ぎ表現）である「${token.surface_form}」を検知しました。
+                            `フィラー（つなぎ表現）である「${token.surface_form}」を検知しました。
                         
-「えーと」「あの」「まあ」などの繋ぎ表現は話し言葉（口語）であるため、文章を読みにくくします。`,
+「えーと」「あの」「まあ」などのつなぎ表現は話し言葉（口語）であるため、文章を読みにくくします。`,
                             {
                                 index: originalIndex
                             }

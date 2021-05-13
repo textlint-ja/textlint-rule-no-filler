@@ -1,6 +1,6 @@
 # @textlint-ja/textlint-rule-no-filler
 
-「ええと」「あの」「まあ」などのフィラー（繋ぎ表現）を禁止するtextlintルール
+「ええと」「あの」「まあ」などのフィラー（つなぎ表現）を禁止するtextlintルール
 
 NG:
 
