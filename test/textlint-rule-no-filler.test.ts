@@ -55,7 +55,21 @@ tester.run("textlint-rule-no-filler", rule, {
                 }
             ]
         },
-        // mutiline
+        {
+            // multi sentence
+            text: `なんか、これは問題あるかも。なんか、これは問題あるかも。`,
+            errors: [
+                {
+                    message: errorMessage("なんか"),
+                    index: 0
+                },
+                {
+                    message: errorMessage("なんか"),
+                    index: 14
+                }
+            ]
+        },
+        // multiline
         {
             text: `なんか、これは問題あるかも。
 サーバとサーバーの表記揺れがある。
