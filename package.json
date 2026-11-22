@@ -45,21 +45,23 @@
     "trailingComma": "none"
   },
   "devDependencies": {
-    "@textlint/types": "^1.5.5",
-    "@types/node": "^15.0.3",
+    "@textlint/ast-node-types": "^16.1.2",
+    "@textlint/types": "^16.1.2",
+    "@types/node": "^24.19.2",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.0",
-    "textlint-scripts": "^3.0.0",
-    "textlint-tester": "^5.3.5",
+    "textlint-scripts": "^16.1.2",
+    "textlint-tester": "^16.1.2",
     "ts-node": "^9.1.1",
-    "typescript": "^4.2.4"
+    "typescript": "^5.9.3"
   },
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "kuromojin": "^3.0.0",
-    "sentence-splitter": "^3.2.1",
-    "textlint-util-to-string": "^3.1.1"
-  }
+    "kuromojin": "^3.1.0",
+    "sentence-splitter": "^5.1.0",
+    "textlint-util-to-string": "^3.3.4"
+  },
+  "packageManager": "pnpm@12.21.0"
 }
