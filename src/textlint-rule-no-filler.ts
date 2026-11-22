@@ -1,8 +1,8 @@
-import type { TxtTextNode } from "@textlint/ast-node-types";
+import type { TxtNode, TxtTextNode } from "@textlint/ast-node-types";
 import type { TextlintRuleReporter } from "@textlint/types";
 import { StringSource } from "textlint-util-to-string";
 import { tokenize } from "kuromojin";
-import { splitAST, Syntax as SentenceSyntax, SentenceNode } from "sentence-splitter";
+import { splitAST, SentenceSplitterSyntax as SentenceSyntax, TxtSentenceNode as SentenceNode } from "sentence-splitter";
 
 export type Options = {};
 /**
@@ -47,7 +47,8 @@ const report: TextlintRuleReporter<Options> = (context) => {
                         const index = token.word_position - 1;
                         const originalIndex = source.originalIndexFromIndex(index);
                         report(
-                            sentence,
+                            // The Sentence node of sentence-splitter has range and loc, but its type is not a TxtNode type
+                            sentence as unknown as TxtNode,
                             new RuleError(
                                 `フィラー（つなぎ表現）である「${token.surface_form}」を検知しました。
                         
